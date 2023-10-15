@@ -12,6 +12,9 @@ import { LoginSectionComponent } from './login-section/login-section.component';
 import { AppRoutingModule } from './app-routing.module';
 import {HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { LoggedPageComponent } from './logged-page/logged-page.component';
+import { CenterListComponent } from './center-list/center-list.component';
+import { NewCenterComponent } from './new-center/new-center.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { FormsModule } from '@angular/forms';
     CenterDetailComponent,
     UserDetailComponent,
     UserListComponent,
-    LoginSectionComponent
+    LoginSectionComponent,
+    LoggedPageComponent,
+    CenterListComponent,
+    NewCenterComponent
   ],
   imports: [
     BrowserModule,

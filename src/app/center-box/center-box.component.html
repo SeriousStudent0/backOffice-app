@@ -1,1 +1,17 @@
-<p>center-box works!</p>
+<div class="centerList" *ngIf="centers">
+    <ul>
+        <li *ngFor="let center of centers">
+            <div class="detail" *ngIf="center">
+                <div class="box">
+                    <h2 [title]="center.name">{{center.name}}</h2> 
+                    <div> 
+                        <span>{{center.address.city}}</span>
+                        ,
+                        <span>{{center.address.street}}</span>
+                    </div>
+                    <button [routerLink]="['/center/{{center.id}}']">Choisir</button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

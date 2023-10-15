@@ -1,0 +1,19 @@
+<p>Creation d'un nouveau centre de vaccination</p>
+
+<div>
+    <input type="text" placeholder="Nom" [(ngModel)]="name">
+</div>
+<div>
+    <input type="text" placeholder="Pays" [(ngModel)]="country">
+</div>
+<div>
+<input type="text" placeholder="Code postal" [(ngModel)]="postalCode">
+<input type="text" placeholder="Ville" [(ngModel)]="city">
+</div>
+<div>
+    <input type="number" placeholder="Numero de voie" [(ngModel)]="streetNumber">
+    <input type="text" placeholder="Rue" [(ngModel)]="street">
+</div>
+<div>
+    <button (click)="create()">Créer</button>
+</div>

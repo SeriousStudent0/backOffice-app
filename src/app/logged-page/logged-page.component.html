@@ -1,0 +1,45 @@
+<p>Vous êtes connecté en tant que :</p>
+
+<div class="info-box">
+    <li>Nom : {{user?.name}}</li>
+    <li>Role : {{user?.role}}</li>
+    <li>État de connexion : {{ user?.log }}</li>
+    <li>Addresse : {{user?.address}}</li>
+    <li>Centre de vaccination : {{user?.healthCenter}}</li>
+</div>
+
+<div *ngIf="user">
+    <ul>
+      <li *ngIf="user.role.toString() === 'SUPER_ADMIN'">
+        <button (click)="toggleContainerCentres()">Centres</button>
+      </li>
+      <li *ngIf="(user.role.toString() === 'ADMIN' || user.role.toString() === 'SUPER_ADMIN') && user.healthCenter">
+        <button (click)="toggleContainerMonCentre()">Mon centre</button>
+      </li>
+      <li *ngIf="user.healthCenter">
+        <a href="planning">Planning</a>
+      </li>
+      <li *ngIf="user.role.toString() === 'SUPER_ADMIN'">
+        <a href="Config">Config</a>
+      </li>
+    </ul>
+  </div>
+
+<!--le container truc est juste un test bool, il faut en créer un pour chaque container à afficher ou cacher-->
+<!--ensuite le app-user-detail est la pour le test mais il faut le remplacer par le bon container-->
+  <div *ngIf="showContainerUserDetail">
+    <app-user-detail></app-user-detail>
+  </div>
+
+  <div *ngIf="showContainerCentres">
+    <app-search-bar
+      (hidden)="toggleContainerNewCentreAndHideSearchBar()">
+    </app-search-bar>
+  </div>
+
+  <div *ngIf="showContainerNewCentre">
+    <app-new-center
+      (newCenterCreated)="newCenterCreation()">
+    </app-new-center>
+  </div>
+  
