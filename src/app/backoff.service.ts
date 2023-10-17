@@ -48,12 +48,16 @@ export class BackoffService {
     );
   }
 
-  createNewCenter(center : HealthCenter): Observable<HealthCenter>{
-    return this.httpClient.post<HealthCenter>('http://localhost:8080/public/healthcenter/create', center);
+  createNewCenter(centerName : String, addressId : Number): Observable<HealthCenter>{
+    return this.httpClient.post<HealthCenter>('http://localhost:8080/public/healthcenter/create', {centerName, addressId});
   }
 
   createNewAddress(address : Address): Observable<Address>{
     return this.httpClient.post<Address>('http://localhost:8080/address/create', address);
+  }
+
+  loggout(id : number) : Observable<boolean>{
+    return this.httpClient.put<boolean>('http://localhost:8080/doctor/logging', id);
   }
 
 }

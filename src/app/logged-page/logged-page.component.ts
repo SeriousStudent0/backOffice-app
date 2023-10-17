@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Doctor } from '../doctor';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BackoffService } from '../backoff.service';
 import { defaultIfEmpty } from 'rxjs';
 import { UserRole } from '../userRole';
@@ -13,14 +13,14 @@ import { UserRole } from '../userRole';
 export class LoggedPageComponent implements OnInit{
 
   user : Doctor | undefined;
-  id : Number = 0;
+  id : number = 0;
   UserRole = UserRole;
   showContainerMonCentre = false;
   showContainerCentres = false;
   showContainerUserDetail = false;
   showContainerNewCentre = false;
 
-  constructor(private route: ActivatedRoute, private service: BackoffService){}
+  constructor(private route: ActivatedRoute, private service: BackoffService, private router: Router){}
 
   ngOnInit() : void{
     const idParam = Number(this.route.snapshot.paramMap.get('id'));
@@ -68,5 +68,16 @@ export class LoggedPageComponent implements OnInit{
 
   newCenterCreation(){
     this.toggleContainerCentres();
+  }
+
+  loggout(): void {
+    this.service.loggout(this.id).subscribe({
+      next: () => {
+        this.router.navigate([`login`])
+      },
+      error: (error) => {
+        console.error('Logout failed', error);
+      },
+    });
   }
 }
