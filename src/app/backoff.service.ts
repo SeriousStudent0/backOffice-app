@@ -56,6 +56,10 @@ export class BackoffService {
     return this.httpClient.post<Address>('http://localhost:8080/address/create', address);
   }
 
+  updateCenter(healthCenter : HealthCenter): Observable<HealthCenter>{
+    return this.httpClient.put<HealthCenter>('http://localhost:8080/public/healthcenter/create', healthCenter);
+  }
+
   loggout(id : number) : Observable<boolean>{
     return this.httpClient.put<boolean>('http://localhost:8080/doctor/logging', id);
   }

@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { LoggedPageComponent } from './logged-page/logged-page.component';
 import { CenterListComponent } from './center-list/center-list.component';
 import { NewCenterComponent } from './new-center/new-center.component';
+import { CenterDetailBoxComponent } from './center-detail-box/center-detail-box.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { NewCenterComponent } from './new-center/new-center.component';
     LoginSectionComponent,
     LoggedPageComponent,
     CenterListComponent,
-    NewCenterComponent
+    NewCenterComponent,
+    CenterDetailBoxComponent
   ],
   imports: [
     BrowserModule,

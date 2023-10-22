@@ -11,6 +11,7 @@ import { defaultIfEmpty } from 'rxjs';
 export class SearchBarComponent {
 
   @Output() hidden = new EventEmitter<boolean>();
+  @Output() hiddenCreate = new EventEmitter<HealthCenter>();
 
   centers: HealthCenter[] = [];
   searchQuery : string = "";
@@ -30,6 +31,10 @@ export class SearchBarComponent {
 
   hide(){
     this.hidden.emit(false);
+  }
+
+  hideAndModify(healthCenter : HealthCenter){
+    this.hiddenCreate.emit(healthCenter);
   }
 
   search() : void{

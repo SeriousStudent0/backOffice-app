@@ -31,16 +31,29 @@
     <app-user-detail></app-user-detail>
   </div>
 
-  <div *ngIf="showContainerCentres">
+  <div *ngIf="showContainerCenters">
     <app-search-bar
-      (hidden)="toggleContainerNewCentreAndHideSearchBar()">
+      (hidden)="toggleContainerNewCentreAndHideSearchBar()"
+      (hiddenCreate)="toggleContainerCenterDetails($event)">
     </app-search-bar>
   </div>
 
-  <div *ngIf="showContainerNewCentre">
+  <div *ngIf="showContainerNewCenter">
     <app-new-center
-      (newCenterCreated)="newCenterCreation()">
+      (newCenterCreated)="toggleContainerCentres()">
     </app-new-center>
+  </div>
+
+  <div *ngIf="showContainerCenterDetails">
+    <app-center-detail [center]="healthCenterForDetails!"
+      (updatedAndHidden)="toggleContainerCentres()"
+      (hidden)="toggleContainerCentres()"
+      (usersListCenterDetail)="toggleContainerUserListBox($event)">
+    </app-center-detail>
+  </div>
+
+  <div *ngIf="showContainerUserListBox">
+    <app-center-detail-box [center]="healthCenterForUsers!"></app-center-detail-box>
   </div>
 
   <li>

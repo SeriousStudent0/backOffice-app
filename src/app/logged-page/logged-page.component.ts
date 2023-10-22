@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BackoffService } from '../backoff.service';
 import { defaultIfEmpty } from 'rxjs';
 import { UserRole } from '../userRole';
+import { HealthCenter } from '../healthCenter';
 
 @Component({
   selector: 'app-logged-page',
@@ -15,10 +16,14 @@ export class LoggedPageComponent implements OnInit{
   user : Doctor | undefined;
   id : number = 0;
   UserRole = UserRole;
-  showContainerMonCentre = false;
-  showContainerCentres = false;
+  showContainerMonCenter = false;
+  showContainerCenters = false;
   showContainerUserDetail = false;
-  showContainerNewCentre = false;
+  showContainerNewCenter = false;
+  showContainerCenterDetails = false;
+  showContainerUserListBox = false;
+  healthCenterForDetails : HealthCenter | undefined;
+  healthCenterForUsers : HealthCenter | undefined;
 
   constructor(private route: ActivatedRoute, private service: BackoffService, private router: Router){}
 
@@ -38,36 +43,46 @@ export class LoggedPageComponent implements OnInit{
   //debug
   checkRoleAndHealthCenter() {
     console.log('User Role:', this.user?.role);
-    console.log('User HealthCenter:', this.user?.healthCenter);
+    console.log('User HealthCenter:', this.user?.healthCenter?.name);
     console.log('Type of User Role:', typeof this.user?.role);
     console.log('Type of User HealthCenter:', typeof this.user?.healthCenter);
   }
 
   toggleContainerMonCentre() {
-    this.showContainerMonCentre = !this.showContainerMonCentre;
+    this.showContainerMonCenter = !this.showContainerMonCenter;
   }
 
   toggleContainerCentres() {
-    this.showContainerCentres = !this.showContainerCentres;
-    this.showContainerMonCentre = false;
+    this.showContainerMonCenter = false;
     this.showContainerUserDetail = false;
-    this.showContainerNewCentre = false;
+    this.showContainerNewCenter = false;
+    this.showContainerCenterDetails = false;
+    this.showContainerCenters = !this.showContainerCenters;
 
-  }
-
-  toggleContainerNewCenter() {
-    this.showContainerNewCentre = !this.showContainerNewCentre;
   }
 
   toggleContainerNewCentreAndHideSearchBar(){
-    this.showContainerCentres = false;
-    this.showContainerMonCentre = false;
+    this.showContainerCenters = false;
+    this.showContainerMonCenter = false;
     this.showContainerUserDetail = false;
-    this.toggleContainerNewCenter();
+    this.showContainerNewCenter = !this.showContainerNewCenter;
   }
 
-  newCenterCreation(){
-    this.toggleContainerCentres();
+  toggleContainerCenterDetails(healthCenter : HealthCenter){
+    this.healthCenterForDetails = healthCenter;
+    this.showContainerCenters = false;
+    this.showContainerMonCenter = false;
+    this.showContainerUserDetail = false;
+    this.showContainerCenterDetails = true;
+  }
+
+  toggleContainerUserListBox(healthCenter : HealthCenter){
+    this.healthCenterForUsers = healthCenter;
+    this.showContainerCenters = false;
+    this.showContainerMonCenter = false;
+    this.showContainerUserDetail = false;
+    this.showContainerCenterDetails = false;
+    this.showContainerUserListBox = true;
   }
 
   loggout(): void {

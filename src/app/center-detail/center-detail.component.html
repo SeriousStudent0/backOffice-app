@@ -1,1 +1,32 @@
-<p>center-detail works!</p>
+<div *ngIf="center">  
+    <p>Modification du centre de vaccination : </p>
+    <div>
+        <p>{{center.name}}</p>
+        <input type="text" placeholder="Nom" [(ngModel)]="updatedCenter.name">
+    </div>
+    <div>
+        <p>{{center.address.country}}</p>
+        <input type="text" placeholder="Pays" [(ngModel)]="updatedCenter.address.country">
+    </div>
+    <div>
+    <p>{{center.address.postalCode}}</p>
+    <input type="number" placeholder="Code postal" [(ngModel)]="updatedCenter.address.postalCode">
+    <p>{{center.address.city}}</p>
+    <input type="text" placeholder="Ville" [(ngModel)]="updatedCenter.address.city">
+    </div>
+    <div>
+        <p>{{center.address.streetNumber}}</p>
+        <input type="number" placeholder="Numero de rue" [(ngModel)]="updatedCenter.address.streetNumber">
+        <p>{{center.address.street}}</p>
+        <input type="text" placeholder="Rue" [(ngModel)]="updatedCenter.address.street">
+    </div>
+    <div>
+        <button (click)="hide()">Annuler</button>
+    </div>
+    <div>
+        <button (click)="saveAndHide(updatedCenter)">Enregistrer</button>
+    </div>
+    <div>
+        <button (click)="users(center!)">Personnel</button>
+    </div>
+</div>

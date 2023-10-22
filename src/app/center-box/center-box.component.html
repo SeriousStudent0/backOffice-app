@@ -5,11 +5,11 @@
                 <div class="box">
                     <h2 [title]="center.name">{{center.name}}</h2> 
                     <div> 
-                        <span>{{center.address.city}}</span>
+                        <span>{{center.address.postalCode}}</span>
                         ,
-                        <span>{{center.address.street}}</span>
+                        <span>{{center.address.city}}</span>
                     </div>
-                    <button [routerLink]="['/center/{{center.id}}']">Choisir</button>
+                    <button (click)="modifyCenter(center)">Modifier</button>
                 </div>
             </div>
         </li>

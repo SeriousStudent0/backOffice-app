@@ -5,5 +5,5 @@ export interface HealthCenter{
     id?: number;
     name: string;
     address: Address;
-    doctors: Doctor[];
+    doctors?: Doctor[];
 }

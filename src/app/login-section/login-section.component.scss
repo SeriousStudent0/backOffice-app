@@ -1,0 +1,28 @@
+.login-section{
+    margin: 0;
+    padding: 0;
+    height: 30vh;
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center; /* Center horizontally */
+    align-items: center;
+   
+    
+}
+
+input{
+    border-radius: 10px; /* Adjust the value to control the roundness */
+    padding: 10px; /* Increase the padding to make the input bigger */
+    border: 2px solid #ccc; /* Add a border for a cleaner look */
+}
+
+button{
+    margin: 1vh;
+    border-radius: 10px; /* Adjust the value to control the roundness */
+    padding: 10px; /* Increase the padding to make the input bigger */
+    border: 2px solid #ccc; /* Add a border for a cleaner look */
+    background-color: rgb(249, 161, 161);
+    font-family: 'Lucida Sans Unicode', Arial, sans-serif; 
+    font-weight: 500;
+    color : rgb(0, 0, 0);
+}
