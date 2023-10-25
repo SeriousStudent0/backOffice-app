@@ -34,7 +34,8 @@
   <div *ngIf="showContainerCenters">
     <app-search-bar
       (hidden)="toggleContainerNewCentreAndHideSearchBar()"
-      (hiddenCreate)="toggleContainerCenterDetails($event)">
+      (hiddenCreate)="toggleContainerCenterDetails($event)"
+      (hiddenUsers)="toggleContainerUserListBox($event)">
     </app-search-bar>
   </div>
 

@@ -57,6 +57,7 @@ export class LoggedPageComponent implements OnInit{
     this.showContainerUserDetail = false;
     this.showContainerNewCenter = false;
     this.showContainerCenterDetails = false;
+    this.showContainerUserListBox = false;
     this.showContainerCenters = !this.showContainerCenters;
 
   }

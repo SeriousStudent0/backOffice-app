@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { BackoffService } from '../backoff.service';
 import { HealthCenter } from '../healthCenter';
 import { defaultIfEmpty } from 'rxjs';
@@ -8,10 +8,11 @@ import { defaultIfEmpty } from 'rxjs';
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.scss']
 })
-export class SearchBarComponent {
+export class SearchBarComponent implements OnInit{
 
   @Output() hidden = new EventEmitter<boolean>();
   @Output() hiddenCreate = new EventEmitter<HealthCenter>();
+  @Output() hiddenUsers = new EventEmitter<HealthCenter>();
 
   centers: HealthCenter[] = [];
   searchQuery : string = "";
@@ -35,6 +36,10 @@ export class SearchBarComponent {
 
   hideAndModify(healthCenter : HealthCenter){
     this.hiddenCreate.emit(healthCenter);
+  }
+
+  hideAndShowUsers(healthCenter : HealthCenter){
+    this.hiddenUsers.emit(healthCenter);
   }
 
   search() : void{

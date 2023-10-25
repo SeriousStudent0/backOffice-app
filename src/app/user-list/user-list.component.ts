@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Doctor } from '../doctor';
 
 @Component({
   selector: 'app-user-list',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent {
+  
+  @Input() users!: Doctor[];
+  @Input() role! : String;
 
 }

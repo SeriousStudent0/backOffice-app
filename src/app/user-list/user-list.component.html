@@ -1,1 +1,17 @@
-<p>user-list works!</p>
+<div>{{role!}}</div><button>Créer</button>
+<div class="centerList" *ngIf="users">
+    <ul>
+        <li *ngFor="let user of users">
+            <div class="detail" *ngIf="user">
+                <div class="box">
+                    <h2 [title]="user.name">{{user.name}}</h2> 
+                    <div> 
+                        <span>{{user.id}}</span>
+                    </div>
+                    <button>Modifier</button>
+                    <button>Supprimer</button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

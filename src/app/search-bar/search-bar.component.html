@@ -6,6 +6,8 @@
 
 
 <div>
-    <app-center-box [centers]="centers" (startModifyCenter)="hideAndModify($event)"></app-center-box>
+    <app-center-box [centers]="centers"
+    (startModifyCenter)="hideAndModify($event)"
+    (usersListCenter)="hideAndShowUsers($event)"></app-center-box>
 </div>
 

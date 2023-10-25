@@ -2,3 +2,9 @@
 <p>{{center.id}}</p>
 <p>{{center.name}}</p>
 <p>{{center.address.street}}</p>
+
+
+<div class="centerList" *ngIf="center">
+    <app-user-list [users]="admins" [role]="'Administrateurs'"></app-user-list>
+    <app-user-list [users]="users" [role]="'Docteurs'"></app-user-list>
+</div>
