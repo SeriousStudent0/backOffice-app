@@ -54,7 +54,16 @@
   </div>
 
   <div *ngIf="showContainerUserListBox">
-    <app-center-detail-box [center]="healthCenterForUsers!"></app-center-detail-box>
+    <app-center-detail-box [center]="healthCenterForUsers!"
+    (createdUserAndHide)="toggleContainerNewUser(healthCenterForUsers!, $event)"></app-center-detail-box>
+  </div>
+
+
+  <div *ngIf="showContainerUserCreation">
+    <app-user-detail 
+    [center]="healthCenterForUsers!"
+    [role]="roleForUser!"
+    (newUserCreatedAndHide)="hideContainerNewUser()"></app-user-detail>
   </div>
 
   <li>

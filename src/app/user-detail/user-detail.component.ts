@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { HealthCenter } from '../healthCenter';
+import { UserRole } from '../userRole';
 
 @Component({
   selector: 'app-user-detail',
@@ -7,4 +9,7 @@ import { Component } from '@angular/core';
 })
 export class UserDetailComponent {
 
+  @Input() center!: HealthCenter;
+  @Input() role!: UserRole;
+  @Output() createdAndHide = new EventEmitter<void>();
 }

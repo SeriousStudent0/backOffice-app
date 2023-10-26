@@ -1,4 +1,4 @@
-<div>{{role!}}</div><button>Créer</button>
+<div>{{role!}}</div><button (click)="createNewUserAndHide()">Créer</button>
 <div class="centerList" *ngIf="users">
     <ul>
         <li *ngFor="let user of users">

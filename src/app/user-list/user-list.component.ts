@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Doctor } from '../doctor';
 
 @Component({
@@ -10,5 +10,11 @@ export class UserListComponent {
   
   @Input() users!: Doctor[];
   @Input() role! : String;
+  @Output() createAndHide = new EventEmitter<void>();
 
+  constructor(){}
+
+  createNewUserAndHide(){
+    this.createAndHide.emit()
+  }
 }

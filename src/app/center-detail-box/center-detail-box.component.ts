@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HealthCenter } from '../healthCenter';
 import { BackoffService } from '../backoff.service';
 import { Doctor } from '../doctor';
@@ -12,6 +12,7 @@ import { UserRole } from '../userRole';
 export class CenterDetailBoxComponent implements OnInit{
 
   @Input() center!: HealthCenter;
+  @Output() createdUserAndHide = new EventEmitter<UserRole>();
 
   doctors: Doctor[] = [];
   admins: Doctor[] = [];
@@ -45,6 +46,14 @@ export class CenterDetailBoxComponent implements OnInit{
       }else if(doctor.role == UserRole.USER){
         this.users.push(doctor);
       }
+    }
+  }
+
+  createNewUserAndHide(role : Boolean){
+    if (role){
+      this.createdUserAndHide.emit(UserRole.ADMIN);
+    } else{
+      this.createdUserAndHide.emit(UserRole.USER);
     }
   }
 }
