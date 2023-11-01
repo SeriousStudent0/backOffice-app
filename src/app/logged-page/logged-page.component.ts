@@ -23,9 +23,13 @@ export class LoggedPageComponent implements OnInit{
   showContainerCenterDetails = false;
   showContainerUserListBox = false;
   showContainerUserCreation = false;
+  showContainerUserModification = false;
+  showContainerConfirmationUser = false;
   healthCenterForDetails : HealthCenter | undefined;
   healthCenterForUsers : HealthCenter | undefined;
   roleForUser : UserRole | undefined;
+  userToModify : Doctor | undefined;
+  userToDelete : Doctor | undefined;
 
   constructor(private route: ActivatedRoute, private service: BackoffService, private router: Router){}
 
@@ -106,6 +110,31 @@ export class LoggedPageComponent implements OnInit{
     this.showContainerCenterDetails = false;
     this.showContainerUserListBox = true;
     this.showContainerUserCreation = false;
+    this.showContainerUserModification = false;
+    this.showContainerConfirmationUser = false;
+  }
+  toggleContainerModifyUser(healthCenter : HealthCenter, user : Doctor){
+    this.healthCenterForUsers = healthCenter;
+    this.userToModify = user;
+    this.showContainerCenters = false;
+    this.showContainerMonCenter = false;
+    this.showContainerUserDetail = false;
+    this.showContainerCenterDetails = false;
+    this.showContainerUserListBox = true;
+    this.showContainerUserCreation = false;
+    this.showContainerUserModification = true;
+  }
+
+  toggleContainerConfirmationUser(user : Doctor){
+    this.userToDelete = user;
+    this.showContainerCenters = false;
+    this.showContainerMonCenter = false;
+    this.showContainerUserDetail = false;
+    this.showContainerCenterDetails = false;
+    this.showContainerUserListBox = true;
+    this.showContainerUserCreation = false;
+    this.showContainerUserModification = false;
+    this.showContainerConfirmationUser = true;
   }
 
   loggout(): void {

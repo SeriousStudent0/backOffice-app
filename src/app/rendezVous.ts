@@ -3,7 +3,7 @@ import { Patient } from "./patient";
 
 
 export interface RendezVous{
-    id: number;
+    id?: number;
     date: Date;
     doctor: Doctor;
     patient: Patient;

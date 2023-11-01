@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { HealthCenter } from '../healthCenter';
-import { Address } from '../address';
+import { HealthCenter, HealthCenterRequest } from '../healthCenter';
+import { Address, AddressRequest } from '../address';
 import { BackoffService } from '../backoff.service';
 import { catchError, of, switchMap } from 'rxjs';
 import { HAMMER_LOADER } from '@angular/platform-browser';
@@ -14,16 +14,24 @@ export class CenterDetailComponent implements OnInit{
 
   @Input() center!: HealthCenter;
   @Output() hidden = new EventEmitter<void>();
-  @Output() updatedAndHidden = new EventEmitter<HealthCenter>();
+  @Output() updatedAndHidden = new EventEmitter<HealthCenterRequest>();
   @Output() usersListCenterDetail = new EventEmitter<HealthCenter>();
 
-  updatedCenter: HealthCenter = {} as HealthCenter;
+  updatedCenter: HealthCenterRequest = {} as HealthCenterRequest;
+  newAddress: AddressRequest = {} as AddressRequest;
 
   constructor(private service: BackoffService){}
 
   ngOnInit() : void{
-    this.updatedCenter = JSON.parse(JSON.stringify(this.center));
+    this.updatedCenter.id = this.center.id;
+    this.updatedCenter.name = this.center.name;
     this.updatedCenter.address.id = this.center.address.id;
+    this.newAddress.id = this.center.address.id;
+    this.newAddress.city = this.center.address.city;
+    this.newAddress.country = this.center.address.city;
+    this.newAddress.postalCode = this.center.address.postalCode;
+    this.newAddress.street = this.center.address.street;
+    this.newAddress.streetNumber = this.center.address.streetNumber;
   }
 
   hide(){
@@ -31,29 +39,28 @@ export class CenterDetailComponent implements OnInit{
   }
 
   addressModification() : void{
-    if(this.updatedCenter.address.city !== this.center.address.city 
-      || this.updatedCenter.address.country !== this.center.address.country
-      || this.updatedCenter.address.postalCode !== this.center.address.postalCode
-      || this.updatedCenter.address.street !== this.center.address.street
-      || this.updatedCenter.address.streetNumber !== this.center.address.streetNumber){
-      this.updatedCenter.address.id = undefined;
+    if(this.newAddress.city !== this.center.address.city 
+      || this.newAddress.country !== this.center.address.country
+      || this.newAddress.postalCode !== this.center.address.postalCode
+      || this.newAddress.street !== this.center.address.street
+      || this.newAddress.streetNumber !== this.center.address.streetNumber){
+      this.newAddress.id = undefined;
     }
   }
 
-  saveAndHide(healthCenter : HealthCenter){
+  saveAndHide(healthCenter : HealthCenterRequest, address: AddressRequest){
     this.addressModification();
     // Create a new address and use switchMap to chain the center modification
     this.service
-    .createNewAddress(healthCenter.address)
+    .createNewAddress(address)
     .pipe(
       switchMap((responseAddress) => {
         // Handle success response for creating a new address
         // Now that we have the address ID from the response, we use it for creating the center
         const addressId = responseAddress?.id || 0;
         healthCenter.address.id = addressId;
-        const { doctors, ...healthCenterWithoutDoctorList } = healthCenter;
         // Return an observable for creating the new health center
-        return this.service.updateCenter(healthCenterWithoutDoctorList);
+        return this.service.updateCenter(healthCenter);
       }),
       catchError((error) => {
         // Handle the error for creating a new address

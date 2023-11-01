@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { BackoffService } from '../backoff.service';
-import { HealthCenter } from '../healthCenter';
+import { HealthCenter, HealthCenterRequest } from '../healthCenter';
 import { HAMMER_LOADER } from '@angular/platform-browser';
-import { Address } from '../address';
+import { Address, AddressRequest } from '../address';
 import { catchError, of, switchMap } from 'rxjs';
 
 @Component({
@@ -21,12 +21,19 @@ export class NewCenterComponent {
   streetNumber : number = 0;
   postalCode : number = 0;
 
-  newAddress : Address = {
+  newAddress : AddressRequest = {
     city:this.city,
     country:this.country,
     street:this.street,
     streetNumber:this.streetNumber,
     postalCode:this.postalCode
+  }
+
+  newCenter: HealthCenterRequest = {
+    name:this.name,
+    address:{
+      id:0
+    }
   }
 
   constructor(private service: BackoffService){}
@@ -40,6 +47,7 @@ export class NewCenterComponent {
   }
 
   create() : void{
+    this.newCenter.name = this.name;
     this.updateAddress();
 
     console.log(this.name);
@@ -49,7 +57,7 @@ export class NewCenterComponent {
     console.log(this.newAddress.streetNumber);
     console.log(this.newAddress.postalCode);
 
-    // Create a new address and use switchMap to chain the center creation
+  // Create a new address and use switchMap to chain the center creation
   this.service
   .createNewAddress(this.newAddress)
   .pipe(
@@ -57,9 +65,9 @@ export class NewCenterComponent {
       // Handle success response for creating a new address
       // Now that we have the address ID from the response, we use it for creating the center
       const addressId = responseAddress?.id || 0;
-
+      this.newCenter.address.id = addressId;
       // Return an observable for creating the new health center
-      return this.service.createNewCenter(this.name, addressId);
+      return this.service.createNewCenter(this.newCenter);
     }),
     catchError((error) => {
       // Handle the error for creating a new address

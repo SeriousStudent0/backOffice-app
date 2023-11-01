@@ -4,7 +4,7 @@ import { RendezVous } from "./rendezVous";
 
 
 export interface Patient{
-    id: number;
+    id?: number;
     name: string;
     vaccinated: boolean;
     address: Address;

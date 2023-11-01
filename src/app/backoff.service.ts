@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Doctor } from './doctor';
-import { HealthCenter } from './healthCenter';
-import { Address } from './address';
+import { Doctor, DoctorRequest } from './doctor';
+import { HealthCenter, HealthCenterRequest } from './healthCenter';
+import { Address, AddressRequest } from './address';
 
 @Injectable({
   providedIn: 'root'
@@ -48,15 +48,27 @@ export class BackoffService {
     );
   }
 
-  createNewCenter(centerName : String, addressId : Number): Observable<HealthCenter>{
-    return this.httpClient.post<HealthCenter>('http://localhost:8080/public/healthcenter/create', {centerName, addressId});
+  createNewCenter(healthCenter : HealthCenterRequest): Observable<HealthCenter>{
+    return this.httpClient.post<HealthCenter>('http://localhost:8080/public/healthcenter/create', healthCenter);
   }
 
-  createNewAddress(address : Address): Observable<Address>{
+  createNewAddress(address : AddressRequest): Observable<Address>{
     return this.httpClient.post<Address>('http://localhost:8080/address/create', address);
   }
 
-  updateCenter(healthCenter : HealthCenter): Observable<HealthCenter>{
+  createNewUser(user : DoctorRequest) : Observable<Doctor>{
+    return this.httpClient.post<Doctor>('http://localhost:8080/doctor/create', user);
+  }
+
+  deleteUser(user: Doctor): Observable<ArrayBuffer> {
+    const options = {
+        body: user, // This sets the request body to the user object
+    };
+
+    return this.httpClient.delete<ArrayBuffer>('http://localhost:8080/doctor', options);
+}
+
+  updateCenter(healthCenter : HealthCenterRequest): Observable<HealthCenter>{
     return this.httpClient.put<HealthCenter>('http://localhost:8080/public/healthcenter/create', healthCenter);
   }
 

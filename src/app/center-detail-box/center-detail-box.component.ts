@@ -13,6 +13,8 @@ export class CenterDetailBoxComponent implements OnInit{
 
   @Input() center!: HealthCenter;
   @Output() createdUserAndHide = new EventEmitter<UserRole>();
+  @Output() modifyAndHide = new EventEmitter<Doctor>();
+  @Output() deleteAndHide = new EventEmitter<Doctor>();
 
   doctors: Doctor[] = [];
   admins: Doctor[] = [];
@@ -55,5 +57,13 @@ export class CenterDetailBoxComponent implements OnInit{
     } else{
       this.createdUserAndHide.emit(UserRole.USER);
     }
+  }
+
+  modifyUserAndHide(user : Doctor){
+    this.modifyAndHide.emit(user);
+  }
+
+  deleteUserAndHide(user : Doctor){
+    this.deleteAndHide.emit(user);
   }
 }

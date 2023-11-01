@@ -6,25 +6,25 @@
     </div>
     <div>
         <p>{{center.address.country}}</p>
-        <input type="text" placeholder="Pays" [(ngModel)]="updatedCenter.address.country">
+        <input type="text" placeholder="Pays" [(ngModel)]="newAddress.country">
     </div>
     <div>
     <p>{{center.address.postalCode}}</p>
-    <input type="number" placeholder="Code postal" [(ngModel)]="updatedCenter.address.postalCode">
+    <input type="number" placeholder="Code postal" [(ngModel)]="newAddress.postalCode">
     <p>{{center.address.city}}</p>
-    <input type="text" placeholder="Ville" [(ngModel)]="updatedCenter.address.city">
+    <input type="text" placeholder="Ville" [(ngModel)]="newAddress.city">
     </div>
     <div>
         <p>{{center.address.streetNumber}}</p>
-        <input type="number" placeholder="Numero de rue" [(ngModel)]="updatedCenter.address.streetNumber">
+        <input type="number" placeholder="Numero de rue" [(ngModel)]="newAddress.streetNumber">
         <p>{{center.address.street}}</p>
-        <input type="text" placeholder="Rue" [(ngModel)]="updatedCenter.address.street">
+        <input type="text" placeholder="Rue" [(ngModel)]="newAddress.street">
     </div>
     <div>
         <button (click)="hide()">Annuler</button>
     </div>
     <div>
-        <button (click)="saveAndHide(updatedCenter)">Enregistrer</button>
+        <button (click)="saveAndHide(updatedCenter, newAddress)">Enregistrer</button>
     </div>
     <div>
         <button (click)="users(center!)">Personnel</button>

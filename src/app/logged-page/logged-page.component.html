@@ -3,7 +3,7 @@
 <div class="info-box">
     <li>Nom : {{user?.name}}</li>
     <li>Role : {{user?.role}}</li>
-    <li>État de connexion : {{ user?.log }}</li>
+    <li>État de connexion : {{ user?.isLogged }}</li>
     <li>Addresse : {{user?.address}}</li>
     <li>Centre de vaccination : {{user?.healthCenter}}</li>
 </div>
@@ -55,7 +55,9 @@
 
   <div *ngIf="showContainerUserListBox">
     <app-center-detail-box [center]="healthCenterForUsers!"
-    (createdUserAndHide)="toggleContainerNewUser(healthCenterForUsers!, $event)"></app-center-detail-box>
+    (createdUserAndHide)="toggleContainerNewUser(healthCenterForUsers!, $event)"
+    (modifyAndHide)="toggleContainerModifyUser(healthCenterForUsers!, $event)"
+    (deleteAndHide)="toggleContainerConfirmationUser($event)"></app-center-detail-box>
   </div>
 
 
@@ -63,7 +65,23 @@
     <app-user-detail 
     [center]="healthCenterForUsers!"
     [role]="roleForUser!"
-    (newUserCreatedAndHide)="hideContainerNewUser()"></app-user-detail>
+    (createdAndHide)="hideContainerNewUser()"
+    (hidden)="hideContainerNewUser()"></app-user-detail>
+  </div>
+
+  <div *ngIf="showContainerUserModification">
+    <app-user-detail 
+    [user]="userToModify!"
+    [center]="healthCenterForUsers!"
+    (createdAndHide)="hideContainerNewUser()"
+    (hidden)="hideContainerNewUser()"></app-user-detail>
+  </div>
+
+  <div *ngIf="showContainerConfirmationUser">
+    <app-menu-centers
+    [user]="userToDelete!"
+    (deleted)="hideContainerNewUser()">
+    </app-menu-centers>
   </div>
 
   <li>

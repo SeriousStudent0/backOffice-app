@@ -6,7 +6,9 @@
 <div class="centerList" *ngIf="center">
     <app-user-list 
     [users]="admins" [role]="'Administrateurs'" 
-    (createAndHide)="createNewUserAndHide(true)"></app-user-list>
+    (createAndHide)="createNewUserAndHide(true)"
+    (modifyAndHide)="modifyUserAndHide($event)"
+    (deleteAndHide)="deleteUserAndHide($event)"></app-user-list>
     <app-user-list 
     [users]="users" [role]="'Docteurs'" 
     (createAndHide)="createNewUserAndHide(false)"></app-user-list>

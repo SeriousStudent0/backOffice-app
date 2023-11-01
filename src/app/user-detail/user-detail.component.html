@@ -1,1 +1,38 @@
-<p>user-detail works!</p>
+<div *ngIf="creationNotModification">
+    <p>Creation d'un {{userSentence}} :</p>
+    <p>Centre de rattachement : {{center.name}}</p>
+
+    <div>
+        <input type="text" placeholder="Prénom" [(ngModel)]="fisrtName">
+        <input type="text" placeholder="Nom" [(ngModel)]="lastName">
+    </div>
+    <div>
+        <input type="text" placeholder="Email" [(ngModel)]="newUser.login">
+    </div>
+    <div>
+        <input type="text" placeholder="Mot de passe" [(ngModel)]="newUser.password">
+    <div>
+        <button (click)="createAndHide()">Créer</button>
+    </div>
+
+    <div>
+        <p>Adresse du nouvel utilisateur :</p>
+        <div>
+            <input type="text" placeholder="Pays" [(ngModel)]="newAddress.country">
+        </div>
+        <div>
+        <input type="text" placeholder="Code postal" [(ngModel)]="newAddress.postalCode">
+        <input type="text" placeholder="Ville" [(ngModel)]="newAddress.city">
+        </div>
+        <div>
+            <input type="number" placeholder="Numero de voie" [(ngModel)]="newAddress.streetNumber">
+            <input type="text" placeholder="Rue" [(ngModel)]="newAddress.street">
+        </div>
+    </div>
+</div>
+<div *ngIf="!creationNotModification">
+
+</div>
+
+<button (click)="hide()">Annuler</button>
+

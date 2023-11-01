@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Doctor } from '../doctor';
+import { BackoffService } from '../backoff.service';
 
 @Component({
   selector: 'app-menu-centers',
@@ -7,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class MenuCentersComponent {
 
+  @Input() user!: Doctor;
+
+  constructor(private service: BackoffService){}
+
+  deleteUser(user : Doctor){
+    this.service.deleteUser(user);
+  }
 }
