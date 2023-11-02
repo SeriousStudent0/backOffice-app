@@ -19,22 +19,29 @@ export class CenterDetailBoxComponent implements OnInit{
   doctors: Doctor[] = [];
   admins: Doctor[] = [];
   users: Doctor[] = [];
+  showContainer: Boolean = false;
 
   constructor(private service: BackoffService){}
 
-  ngOnInit() : void{
-    this.getUsers();
-    this.sortAdminsAndUsers();
+  ngOnInit(): void {
+    this.getUsers().then(() => {
+      this.sortAdminsAndUsers(); // This will execute once getUsers() is done
+      this.showContainer = true;
+    });
   }
 
-  getUsers() : void{
-    this.service.getAllDoctorsFromCenter(this.center.id!).subscribe({
-      next: (data: Doctor[]) => {
-        this.doctors = data;
-      },
-      error: (error) => {
-        console.error('Error fetching centers', error);
-      }
+  getUsers(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.service.getAllDoctorsFromCenter(this.center.id!).subscribe({
+        next: (data: Doctor[]) => {
+          this.doctors = data;
+          resolve(); // Resolve the promise when data is fetched
+        },
+        error: (error) => {
+          console.error('Error fetching centers', error);
+          reject(error); // Reject the promise if there's an error
+        }
+      });
     });
   }
 

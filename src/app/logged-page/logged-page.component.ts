@@ -54,6 +54,18 @@ export class LoggedPageComponent implements OnInit{
     console.log('Type of User HealthCenter:', typeof this.user?.healthCenter);
   }
 
+  hideAll(){
+    this.showContainerCenters = false;
+    this.showContainerMonCenter = false;
+    this.showContainerUserDetail = false;
+    this.showContainerCenterDetails = false;
+    this.showContainerUserListBox = false;
+    this.showContainerUserCreation = false;
+    this.showContainerUserModification = false;
+    this.showContainerConfirmationUser = false;
+    this.showContainerNewCenter = false;
+  }
+
   toggleContainerMonCentre() {
     this.showContainerMonCenter = !this.showContainerMonCenter;
   }
@@ -100,7 +112,7 @@ export class LoggedPageComponent implements OnInit{
     this.showContainerMonCenter = false;
     this.showContainerUserDetail = false;
     this.showContainerCenterDetails = false;
-    this.showContainerUserListBox = true;
+    this.showContainerUserListBox = false;
     this.showContainerUserCreation = true;
   }
   hideContainerNewUser(){

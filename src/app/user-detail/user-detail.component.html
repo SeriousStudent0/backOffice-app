@@ -11,10 +11,7 @@
     </div>
     <div>
         <input type="text" placeholder="Mot de passe" [(ngModel)]="newUser.password">
-    <div>
-        <button (click)="createAndHide()">Créer</button>
     </div>
-
     <div>
         <p>Adresse du nouvel utilisateur :</p>
         <div>
@@ -29,7 +26,13 @@
             <input type="text" placeholder="Rue" [(ngModel)]="newAddress.street">
         </div>
     </div>
+    <div>
+        <button (click)="createAndHide()">Créer</button>
+    </div>
 </div>
+
+
+
 <div *ngIf="!creationNotModification">
 
 </div>

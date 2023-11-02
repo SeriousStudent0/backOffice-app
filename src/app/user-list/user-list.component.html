@@ -2,7 +2,7 @@
     {{role!}}
 </div>
 <button (click)="createNewUserAndHide()">Créer</button>
-<div class="centerList" *ngIf="users">
+<div class="centerList">
     <ul>
         <li *ngFor="let user of users">
             <div class="detail" *ngIf="user">
