@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Doctor } from '../doctor';
 import { BackoffService } from '../backoff.service';
 
@@ -10,10 +10,24 @@ import { BackoffService } from '../backoff.service';
 export class MenuCentersComponent {
 
   @Input() user!: Doctor;
+  @Output() hidden = new EventEmitter<void>();
 
   constructor(private service: BackoffService){}
 
-  deleteUser(user : Doctor){
-    this.service.deleteUser(user);
+  deleteUserAndHide(user: Doctor) {
+    this.service.deleteUser(user).subscribe(
+      (response) => {
+        // Handle the success response here if needed
+        // Not needed for now
+        this.hidden.emit(); // Emit the "hidden" event after successful deletion.
+      },
+      (error) => {
+        console.log("Doctor not deleted due to an error")
+      }
+    );
+  }
+
+  hide(){
+    this.hidden.emit();
   }
 }

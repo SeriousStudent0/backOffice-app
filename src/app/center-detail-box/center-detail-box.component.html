@@ -1,17 +1,37 @@
 <div *ngIf="showContainer">
-    <p>Utilisateurs du centre :</p>
-    <p>{{center.name}}</p>
-    <p>{{center.address.street}}</p>
-    
-    
-    <div class="centerList" *ngIf="center">
-        <app-user-list 
-        [users]="admins" [role]="'Administrateurs'" 
-        (createAndHide)="createNewUserAndHide(true)"
-        (modifyAndHide)="modifyUserAndHide($event)"
-        (deleteAndHide)="deleteUserAndHide($event)"></app-user-list>
-        <app-user-list 
-        [users]="users" [role]="'Docteurs'" 
-        (createAndHide)="createNewUserAndHide(false)"></app-user-list>
+    <div *ngIf="center != undefined">
+        <p>Utilisateurs du centre :</p>
+        <p>{{center.name}}</p>
+        <p>{{center.address.street}}</p>
+
+        <div *ngIf="clientRole == SUPER_ADMIN">
+            <app-user-list 
+            [users]="admins" [role]="'Administrateurs'" 
+            (createAndHide)="createNewUserAndHide(ADMIN)"
+            (modifyAndHide)="modifyUserAndHide($event)"
+            (deleteAndHide)="deleteUserAndHide($event)"></app-user-list>
+            <app-user-list 
+            [users]="users" [role]="'Médecins'" 
+            (createAndHide)="createNewUserAndHide(DOCTOR)"
+            (modifyAndHide)="modifyUserAndHide($event)"
+            (deleteAndHide)="deleteUserAndHide($event)"></app-user-list>
+        </div>
+        <div *ngIf="clientRole == ADMIN">
+            <app-user-list 
+            [users]="users" [role]="'Médecins'" 
+            (createAndHide)="createNewUserAndHide(DOCTOR)"
+            (modifyAndHide)="modifyUserAndHide($event)"
+            (deleteAndHide)="deleteUserAndHide($event)"></app-user-list>
+        </div>
+    </div>
+
+    <div *ngIf="center == undefined">
+        <div *ngIf="clientRole == SUPER_ADMIN">
+            <app-user-list 
+            [users]="superAdmins" [role]="'Super Admins'" 
+            (createAndHide)="createNewUserAndHide(SUPER_ADMIN)"
+            (modifyAndHide)="modifyUserAndHide($event)"
+            (deleteAndHide)="deleteUserAndHide($event)"></app-user-list>
+        </div>
     </div>
 </div>

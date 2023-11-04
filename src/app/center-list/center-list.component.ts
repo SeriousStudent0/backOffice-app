@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { HealthCenter } from '../healthCenter';
+import { RendezVous } from '../rendezVous';
+import { BackoffService } from '../backoff.service';
 
 @Component({
   selector: 'app-center-list',
@@ -8,8 +10,9 @@ import { HealthCenter } from '../healthCenter';
 })
 export class CenterListComponent {
 
-  @Input() centers!: HealthCenter[];
+  @Input() center!: HealthCenter;
+  @Input() rdvList!: RendezVous[];
 
-  constructor(){}
+  constructor(private service: BackoffService){}
 
 }

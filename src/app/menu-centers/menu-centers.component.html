@@ -2,10 +2,11 @@
 
 <div>{{user.name}}</div>
 
-<div>Relié au centre :</div>
-
-<div>{{user.healthCenter.name}}</div>
+<div *ngIf="user.healthCenter">Relié au centre :
+    <div>{{user.healthCenter.name}}</div>
+</div>
 
 
 <div>Etes-vous sûr de vouloir supprimer cet utilisateur ?</div>
-<button (click)="deleteUser(user)">Confirmer</button>
+<button (click)="deleteUserAndHide(user)">Confirmer</button>
+<button (click)="hide()">Annuler</button>

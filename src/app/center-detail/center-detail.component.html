@@ -1,23 +1,23 @@
 <div *ngIf="center">  
     <p>Modification du centre de vaccination : </p>
     <div>
-        <p>{{center.name}}</p>
+        <p>Nom du centre :</p>
         <input type="text" placeholder="Nom" [(ngModel)]="updatedCenter.name">
     </div>
     <div>
-        <p>{{center.address.country}}</p>
+        <p>Pays :</p>
         <input type="text" placeholder="Pays" [(ngModel)]="newAddress.country">
     </div>
     <div>
-    <p>{{center.address.postalCode}}</p>
+    <p>Code postal :</p>
     <input type="number" placeholder="Code postal" [(ngModel)]="newAddress.postalCode">
-    <p>{{center.address.city}}</p>
+    <p>Ville :</p>
     <input type="text" placeholder="Ville" [(ngModel)]="newAddress.city">
     </div>
     <div>
-        <p>{{center.address.streetNumber}}</p>
+        <p>Numéro de rue :</p>
         <input type="number" placeholder="Numero de rue" [(ngModel)]="newAddress.streetNumber">
-        <p>{{center.address.street}}</p>
+        <p>Rue :</p>
         <input type="text" placeholder="Rue" [(ngModel)]="newAddress.street">
     </div>
     <div>

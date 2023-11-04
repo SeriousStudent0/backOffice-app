@@ -1,6 +1,8 @@
 <div *ngIf="creationNotModification">
     <p>Creation d'un {{userSentence}} :</p>
-    <p>Centre de rattachement : {{center.name}}</p>
+    <div *ngIf="center != undefined">
+        <p>Centre de rattachement : {{center.name}}</p>
+    </div>
 
     <div>
         <input type="text" placeholder="Prénom" [(ngModel)]="fisrtName">
@@ -34,7 +36,37 @@
 
 
 <div *ngIf="!creationNotModification">
+    <p>Modification de l'utilisateur : {{user!.name}}</p>
+    <div *ngIf="center != undefined">
+        <p>Centre de rattachement : {{center.name}}</p>
+    </div>
 
+    <div>
+        Nom complet (Prénom Nom) : <input type="text" placeholder="Nom complet (Prénom Nom)" [(ngModel)]="newUser.name">
+    </div>
+    <div>
+        Email : <input type="text" placeholder="Email" [(ngModel)]="newUser.login">
+    </div>
+    <div>
+        Mot de passe : <input type="text" placeholder="Mot de passe" [(ngModel)]="newUser.password">
+    </div>
+    <div>
+        <p>Adresse de l'utilisateur :</p>
+        <div>
+            <input type="text" placeholder="Pays" [(ngModel)]="newAddress.country">
+        </div>
+        <div>
+        <input type="text" placeholder="Code postal" [(ngModel)]="newAddress.postalCode">
+        <input type="text" placeholder="Ville" [(ngModel)]="newAddress.city">
+        </div>
+        <div>
+            <input type="number" placeholder="Numero de voie" [(ngModel)]="newAddress.streetNumber">
+            <input type="text" placeholder="Rue" [(ngModel)]="newAddress.street">
+        </div>
+    </div>
+    <div>
+        <button (click)="modifyAndHide()">Enregistrer</button>
+    </div>
 </div>
 
 <button (click)="hide()">Annuler</button>

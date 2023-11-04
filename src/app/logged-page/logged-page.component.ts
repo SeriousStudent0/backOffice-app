@@ -5,6 +5,7 @@ import { BackoffService } from '../backoff.service';
 import { defaultIfEmpty } from 'rxjs';
 import { UserRole } from '../userRole';
 import { HealthCenter } from '../healthCenter';
+import { RendezVous } from '../rendezVous';
 
 @Component({
   selector: 'app-logged-page',
@@ -25,11 +26,14 @@ export class LoggedPageComponent implements OnInit{
   showContainerUserCreation = false;
   showContainerUserModification = false;
   showContainerConfirmationUser = false;
+  showContainerConfig = false;
+  showContainerPlanning = false;
   healthCenterForDetails : HealthCenter | undefined;
   healthCenterForUsers : HealthCenter | undefined;
   roleForUser : UserRole | undefined;
   userToModify : Doctor | undefined;
   userToDelete : Doctor | undefined;
+  rendezVousList : RendezVous[] | undefined;
 
   constructor(private route: ActivatedRoute, private service: BackoffService, private router: Router){}
 
@@ -52,6 +56,8 @@ export class LoggedPageComponent implements OnInit{
     console.log('User HealthCenter:', this.user?.healthCenter?.name);
     console.log('Type of User Role:', typeof this.user?.role);
     console.log('Type of User HealthCenter:', typeof this.user?.healthCenter);
+    console.log('RDV List:', this.user?.rdv);
+
   }
 
   hideAll(){
@@ -64,89 +70,71 @@ export class LoggedPageComponent implements OnInit{
     this.showContainerUserModification = false;
     this.showContainerConfirmationUser = false;
     this.showContainerNewCenter = false;
+    this.showContainerConfig = false;
+    this.showContainerPlanning = false;
   }
 
-  toggleContainerMonCentre() {
+  toggleContainerMonCentre(healthCenter : HealthCenter) {
+    this.healthCenterForUsers = healthCenter;
+    this.hideAll();
     this.showContainerMonCenter = !this.showContainerMonCenter;
   }
 
   toggleContainerCentres() {
-    this.showContainerMonCenter = false;
-    this.showContainerUserDetail = false;
-    this.showContainerNewCenter = false;
-    this.showContainerCenterDetails = false;
-    this.showContainerUserListBox = false;
-    this.showContainerUserCreation = false;
+    this.hideAll();
     this.showContainerCenters = !this.showContainerCenters;
-
   }
 
   toggleContainerNewCentreAndHideSearchBar(){
-    this.showContainerCenters = false;
-    this.showContainerMonCenter = false;
-    this.showContainerUserDetail = false;
+    this.hideAll();
     this.showContainerNewCenter = !this.showContainerNewCenter;
   }
 
   toggleContainerCenterDetails(healthCenter : HealthCenter){
     this.healthCenterForDetails = healthCenter;
-    this.showContainerCenters = false;
-    this.showContainerMonCenter = false;
-    this.showContainerUserDetail = false;
+    this.hideAll();
     this.showContainerCenterDetails = true;
   }
 
   toggleContainerUserListBox(healthCenter : HealthCenter){
     this.healthCenterForUsers = healthCenter;
-    this.showContainerCenters = false;
-    this.showContainerMonCenter = false;
-    this.showContainerUserDetail = false;
-    this.showContainerCenterDetails = false;
+    this.hideAll();
     this.showContainerUserListBox = true;
   }
 
-  toggleContainerNewUser(healthCenter : HealthCenter, role : UserRole){
+  toggleContainerNewUser(role : UserRole, healthCenter? : HealthCenter){
     this.healthCenterForUsers = healthCenter;
     this.roleForUser = role;
-    this.showContainerCenters = false;
-    this.showContainerMonCenter = false;
-    this.showContainerUserDetail = false;
-    this.showContainerCenterDetails = false;
-    this.showContainerUserListBox = false;
+    this.hideAll();
     this.showContainerUserCreation = true;
   }
   hideContainerNewUser(){
-    this.showContainerCenters = false;
-    this.showContainerMonCenter = false;
-    this.showContainerUserDetail = false;
-    this.showContainerCenterDetails = false;
+    this.hideAll();
     this.showContainerUserListBox = true;
-    this.showContainerUserCreation = false;
-    this.showContainerUserModification = false;
-    this.showContainerConfirmationUser = false;
   }
-  toggleContainerModifyUser(healthCenter : HealthCenter, user : Doctor){
+  toggleContainerModifyUser(user : Doctor, healthCenter? : HealthCenter){
     this.healthCenterForUsers = healthCenter;
     this.userToModify = user;
-    this.showContainerCenters = false;
-    this.showContainerMonCenter = false;
-    this.showContainerUserDetail = false;
-    this.showContainerCenterDetails = false;
-    this.showContainerUserListBox = true;
-    this.showContainerUserCreation = false;
+    this.hideAll();
     this.showContainerUserModification = true;
   }
 
   toggleContainerConfirmationUser(user : Doctor){
     this.userToDelete = user;
-    this.showContainerCenters = false;
-    this.showContainerMonCenter = false;
-    this.showContainerUserDetail = false;
-    this.showContainerCenterDetails = false;
-    this.showContainerUserListBox = true;
-    this.showContainerUserCreation = false;
-    this.showContainerUserModification = false;
+    this.hideAll();
     this.showContainerConfirmationUser = true;
+  }
+
+  toggleContainerConfig(){
+    this.hideAll();
+    this.showContainerConfig = true;
+  }
+
+  toggleContainerPlanning(rdvList : RendezVous[], healthCenter : HealthCenter){
+    this.healthCenterForUsers = healthCenter;
+    this.rendezVousList = rdvList;
+    this.hideAll();
+    this.showContainerPlanning = true;
   }
 
   loggout(): void {

@@ -13,7 +13,7 @@ import { catchError, of, switchMap } from 'rxjs';
 })
 export class UserDetailComponent {
 
-  @Input() center!: HealthCenter;
+  @Input() center?: HealthCenter;
   @Input() role? : UserRole;
   @Input() user? : Doctor;
   @Output() createdAndHide = new EventEmitter<void>();
@@ -51,7 +51,10 @@ export class UserDetailComponent {
 
   ngOnInit() : void{
     if(this.role){
-      if(this.role == UserRole.ADMIN){
+      if(this.role == UserRole.SUPER_ADMIN){
+        this.userSentence = "nouveau Super Administrateur";
+        this.newUser.role = this.role;
+      } else if(this.role == UserRole.ADMIN){
         this.userSentence = "nouvel Administrateur";
         this.newUser.role = this.role;
       } else if(this.role == UserRole.USER){
@@ -65,12 +68,14 @@ export class UserDetailComponent {
       this.newUser.name = this.user.name;
       this.newUser.login = this.user.login;
       this.newUser.password = this.user.password;
+      this.newUser.role = this.user.role;
+      this.newUser.isLogged = this.user.isLogged;
       this.newAddress = this.user.address;
-      this.newUser.healthCenter.id = this.user.healthCenter.id;
+      if(this.user.healthCenter){this.newUser.healthCenter.id = this.user.healthCenter.id;}
       this.center = this.user.healthCenter;   
     } else{
       this.creationNotModification = true;
-      this.newUser.healthCenter.id = this.center.id;
+      if(this.center){this.newUser.healthCenter.id = this.center.id;}
     }
   }
 
@@ -98,6 +103,40 @@ export class UserDetailComponent {
         this.newUser.address.id = addressId;
         // Return an observable for creating the new health center
         return this.service.createNewUser(this.newUser);
+      }),
+      catchError((error) => {
+        // Handle the error for creating a new address
+        console.error('Error creating new address', error);
+        return of(null); // Returning a fallback value, like null, to continue the observable chain
+        // Or rethrow the error: return throwError(error);
+      })
+    )
+    .subscribe({
+      next: () => {
+        // Handle success response for creating a new center
+        this.createdAndHide.emit();
+      },
+      error: (error) => {
+        // Handle error for creating a new center
+        console.error('Error creating new user', error);
+      }
+    });
+  }
+
+  modifyAndHide(){
+    this.updateUser();
+
+    // Create a new address and use switchMap to chain the center creation
+    this.service
+    .createNewAddress(this.newAddress)
+    .pipe(
+      switchMap((responseAddress) => {
+        // Handle success response for creating a new address
+        // Now that we have the address ID from the response, we use it for creating the center
+        const addressId = responseAddress?.id || 0;
+        this.newUser.address.id = addressId;
+        // Return an observable for creating the new health center
+        return this.service.updateUser(this.newUser);
       }),
       catchError((error) => {
         // Handle the error for creating a new address

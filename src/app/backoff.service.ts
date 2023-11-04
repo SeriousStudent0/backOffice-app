@@ -60,13 +60,17 @@ export class BackoffService {
     return this.httpClient.post<Doctor>('http://localhost:8080/doctor/create', user);
   }
 
+  updateUser(user : DoctorRequest) : Observable<Doctor>{
+    return this.httpClient.put<Doctor>('http://localhost:8080/doctor/create', user);
+  }
+
   deleteUser(user: Doctor): Observable<ArrayBuffer> {
     const options = {
         body: user, // This sets the request body to the user object
     };
 
-    return this.httpClient.delete<ArrayBuffer>('http://localhost:8080/doctor', options);
-}
+    return this.httpClient.delete<ArrayBuffer>('http://localhost:8080/doctor/delete', options);
+  }
 
   updateCenter(healthCenter : HealthCenterRequest): Observable<HealthCenter>{
     return this.httpClient.put<HealthCenter>('http://localhost:8080/public/healthcenter/create', healthCenter);
@@ -74,6 +78,10 @@ export class BackoffService {
 
   getAllDoctorsFromCenter(id : number) : Observable<Doctor[]>{
     return this.httpClient.get<Doctor[]>(`http://localhost:8080/public/healthcenter/${id}/doctors`);
+  }
+
+  getAllSuperAdmins() : Observable<Doctor[]>{
+    return this.httpClient.get<Doctor[]>(`http://localhost:8080/doctor/superadmins`);
   }
 
   loggout(id : number) : Observable<boolean>{
