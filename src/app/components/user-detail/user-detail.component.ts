@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { HealthCenter } from '../healthCenter';
-import { UserRole } from '../userRole';
-import { BackoffService } from '../backoff.service';
-import { Doctor, DoctorRequest } from '../doctor';
-import { Address, AddressRequest } from '../address';
+import { HealthCenter } from '../../model/healthCenter';
+import { UserRole } from '../../userRole';
+import { BackoffService } from '../../backoff.service';
+import { Doctor, DoctorRequest } from '../../model/doctor';
+import { Address, AddressRequest } from '../../model/address';
 import { catchError, of, switchMap } from 'rxjs';
 
 @Component({

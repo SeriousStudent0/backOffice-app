@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Doctor } from '../doctor';
-import { BackoffService } from '../backoff.service';
+import { Doctor } from '../../model/doctor';
+import { BackoffService } from '../../backoff.service';
 
 @Component({
   selector: 'app-menu-centers',

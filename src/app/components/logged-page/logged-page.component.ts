@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Doctor } from '../doctor';
+import { Doctor } from '../../model/doctor';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BackoffService } from '../backoff.service';
+import { BackoffService } from '../../backoff.service';
 import { defaultIfEmpty } from 'rxjs';
-import { UserRole } from '../userRole';
-import { HealthCenter } from '../healthCenter';
-import { RendezVous } from '../rendezVous';
+import { UserRole } from '../../userRole';
+import { HealthCenter } from '../../model/healthCenter';
+import { RendezVous } from '../../model/rendezVous';
 
 @Component({
   selector: 'app-logged-page',

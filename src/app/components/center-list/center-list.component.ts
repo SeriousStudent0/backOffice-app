@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { HealthCenter } from '../healthCenter';
-import { RendezVous } from '../rendezVous';
-import { BackoffService } from '../backoff.service';
+import { HealthCenter } from '../../model/healthCenter';
+import { RendezVous } from '../../model/rendezVous';
+import { BackoffService } from '../../backoff.service';
 
 @Component({
   selector: 'app-center-list',

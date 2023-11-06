@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { HealthCenter, HealthCenterRequest } from '../healthCenter';
-import { Address, AddressRequest } from '../address';
-import { BackoffService } from '../backoff.service';
+import { HealthCenter, HealthCenterRequest } from '../../model/healthCenter';
+import { Address, AddressRequest } from '../../model/address';
+import { BackoffService } from '../../backoff.service';
 import { catchError, of, switchMap } from 'rxjs';
 import { HAMMER_LOADER } from '@angular/platform-browser';
 

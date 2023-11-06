@@ -1,6 +1,6 @@
 import { HealthCenter, HealthCenterBody} from './healthCenter';
 import { Address, AddressBody } from './address';
-import { UserRole } from './userRole';
+import { UserRole } from '../userRole';
 import { RendezVous } from './rendezVous';
 import { Patient } from './patient';
 

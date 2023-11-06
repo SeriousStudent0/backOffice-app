@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { HealthCenter } from '../healthCenter';
-import { BackoffService } from '../backoff.service';
-import { Doctor } from '../doctor';
-import { UserRole } from '../userRole';
+import { HealthCenter } from '../../model/healthCenter';
+import { BackoffService } from '../../backoff.service';
+import { Doctor } from '../../model/doctor';
+import { UserRole } from '../../userRole';
 
 @Component({
   selector: 'app-center-detail-box',

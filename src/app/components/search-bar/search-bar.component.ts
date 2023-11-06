@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { BackoffService } from '../backoff.service';
-import { HealthCenter } from '../healthCenter';
+import { BackoffService } from '../../backoff.service';
+import { HealthCenter } from '../../model/healthCenter';
 import { defaultIfEmpty } from 'rxjs';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { HealthCenter } from '../healthCenter';
+import { HealthCenter } from '../../model/healthCenter';
 
 @Component({
   selector: 'app-center-box',

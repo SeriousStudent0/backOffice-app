@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BackoffService } from '../backoff.service';
+import { BackoffService } from '../../backoff.service';
 import { Router } from '@angular/router';
 
 @Component({
