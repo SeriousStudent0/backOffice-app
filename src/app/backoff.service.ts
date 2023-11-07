@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, map, tap } from 'rxjs';
+import { Observable, Subject, catchError, map, of, tap } from 'rxjs';
 import { Doctor, DoctorRequest } from './model/doctor';
 import { HealthCenter, HealthCenterRequest } from './model/healthCenter';
 import { Address, AddressRequest } from './model/address';
@@ -17,7 +17,7 @@ export class BackoffService {
 
   constructor(private httpClient: HttpClient) { }
 
-  loginAttempt(login : string, password : string): Observable<number>{
+  loginAttempt(login : string, password : string): Observable<number | null>{
     this.password = password;
     this.login = login;
     let header = this.createAuth(login, password);
@@ -28,14 +28,19 @@ export class BackoffService {
     };
     return this.httpClient.post<number>('http://localhost:8080/doctor/public/logging', null, httpOptions)
     .pipe(
-      tap(() => {
+      map((userId: number) => {
         this.isLoggedSubject.next(true);
         this.password = password;
         this.login = login;
         console.log("Connected")
+        return userId;
+      }),
+      catchError((error: any) => {
+        // Authentication failed
+        return of(null);
       })
     );
-  }
+}
 
   isLogged(): Observable<boolean> {
     return this.isLoggedSubject.asObservable();
@@ -98,7 +103,7 @@ export class BackoffService {
   }
 
   createNewCenter(healthCenter : HealthCenterRequest): Observable<HealthCenter>{
-    return this.httpClient.post<HealthCenter>('http://localhost:8080/public/healthcenter/private/create', healthCenter);
+    return this.httpClient.post<HealthCenter>('http://localhost:8080/healthcenter/private/create', healthCenter);
   }
 
   createNewAddress(address : AddressRequest): Observable<Address>{

@@ -17,15 +17,20 @@ export class LoginSectionComponent {
   loginRequest(): void {
     console.log('Login:', this.login);
     console.log('Password:', this.password);
-
+  
     this.service.loginAttempt(this.login, this.password).subscribe({
-      next: (userId: number) => {
-        console.log(`Logged in as user with ID: ${userId}`);
-        this.route.navigate([`logged/${userId}`])
+      next: (userId: number | null) => {
+        if (userId !== null) {
+          console.log(`Logged in as user with ID: ${userId}`);
+          this.route.navigate([`logged/${userId}`]); // Redirect on success
+        } else {
+          console.error('Login failed');
+        }
       },
       error: (error) => {
         console.error('Login failed', error);
       },
     });
   }
+  
 }
