@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, map, tap } from 'rxjs';
 import { Doctor, DoctorRequest } from './model/doctor';
@@ -12,21 +12,21 @@ export class BackoffService {
 
   private isLoggedSubject: Subject<boolean> = new Subject();
 
-  private password?: String;
-  private login?: String;
+  private password?: string;
+  private login?: string;
 
   constructor(private httpClient: HttpClient) { }
 
-  loginAttempt(login : String, password : String): Observable<number>{
+  loginAttempt(login : string, password : string): Observable<number>{
     this.password = password;
     this.login = login;
     let header = this.createAuth(login, password);
-    let options = {
-      headers: {
+    const httpOptions = {
+      headers: new HttpHeaders({
         'Authorization': header
-      }
+      })
     };
-    return this.httpClient.post<number>('http://localhost:8080/doctor/public/logging', options)
+    return this.httpClient.post<number>('http://localhost:8080/doctor/public/logging', null, httpOptions)
     .pipe(
       tap(() => {
         this.isLoggedSubject.next(true);
@@ -41,7 +41,7 @@ export class BackoffService {
     return this.isLoggedSubject.asObservable();
   }
 
-  getBasicAuthHeaderValue(): String {
+  getBasicAuthHeaderValue(): string {
     return this.createAuth(this.login!, this.password!)
   }
 
@@ -54,7 +54,7 @@ export class BackoffService {
       );
   }
 
-  private createAuth(login: String, password: String): string {
+  private createAuth(login: string, password: string): string {
     const authString = `${login}:${password}`;
     const base64Hash = btoa(authString); // Use btoa to encode in Base64
     const authHeader = `Digest base64(${base64Hash})`;
