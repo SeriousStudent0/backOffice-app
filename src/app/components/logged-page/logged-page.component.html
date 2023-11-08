@@ -4,8 +4,8 @@
     <li>Nom : {{user?.name}}</li>
     <li>Role : {{user?.role}}</li>
     <li>État de connexion : {{ user?.isLogged }}</li>
-    <li>Addresse : {{user?.address}}</li>
-    <li>Centre de vaccination : {{user?.healthCenter}}</li>
+    <li>Addresse : {{user?.address?.street}}</li>
+    <li>Centre de vaccination : {{user?.healthCenter?.name}}</li>
 </div>
 
 <div *ngIf="user">
