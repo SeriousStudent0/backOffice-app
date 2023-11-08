@@ -1,11 +1,16 @@
-<div class = "login-section">
-    <div class="login">
-        <input type="text" placeholder="login" [(ngModel)]="login">
+<div *ngIf="!delay">
+    <div class = "login-section">
+        <div class="login">
+            <input type="text" placeholder="login" [(ngModel)]="login">
+        </div>
+        <div>
+            <input type="text" placeholder="password" [(ngModel)]="password">
+        </div>
+        <div>
+            <button (click)="loginRequest()">Se connecter</button>
+        </div>
     </div>
-    <div>
-        <input type="text" placeholder="password" [(ngModel)]="password">
-    </div>
-    <div>
-        <button (click)="loginRequest()">Se connecter</button>
-    </div>
+</div>
+<div *ngIf="delay">
+    <button (click)="captchat()">Je ne suis pas un robot</button>
 </div>

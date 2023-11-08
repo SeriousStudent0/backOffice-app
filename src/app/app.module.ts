@@ -17,6 +17,7 @@ import { CenterListComponent } from './components/center-list/center-list.compon
 import { NewCenterComponent } from './components/new-center/new-center.component';
 import { CenterDetailBoxComponent } from './components/center-detail-box/center-detail-box.component';
 import { HeaderInterceptor } from './interceptor/header.interceptor';
+import { PlanningBoxComponent } from './components/planning-box/planning-box.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { HeaderInterceptor } from './interceptor/header.interceptor';
     LoggedPageComponent,
     CenterListComponent,
     NewCenterComponent,
-    CenterDetailBoxComponent
+    CenterDetailBoxComponent,
+    PlanningBoxComponent
   ],
   imports: [
     BrowserModule,

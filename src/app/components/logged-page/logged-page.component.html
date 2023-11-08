@@ -16,8 +16,8 @@
       <li *ngIf="(user.role.toString() === 'ADMIN' || user.role.toString() === 'SUPER_ADMIN') && user.healthCenter">
         <button (click)="toggleContainerMonCentre(user.healthCenter)">Mon centre</button>
       </li>
-      <li *ngIf="user.healthCenter && user.rdv">
-        <button (click)="toggleContainerPlanning(user.rdv, user.healthCenter)">Planning</button>
+      <li *ngIf="user.healthCenter">
+        <button (click)="toggleContainerPlanning(user.rdv!, user.healthCenter)">Planning</button>
       </li>
       <li *ngIf="user.role.toString() === 'SUPER_ADMIN'">
         <button (click)="toggleContainerConfig()">Configuration</button>
@@ -101,9 +101,10 @@
     (deleteAndHide)="toggleContainerConfirmationUser($event)"></app-center-detail-box>
   </div>
 
-  <div *ngIf="showContainerMonCenter">
-    <app-center-list [center]="healthCenterForUsers!"
-    [rdvList]="rendezVousList!"></app-center-list>
+  <div *ngIf="showContainerPlanning">
+    <app-planning-box [center]="healthCenterForUsers!"
+    [rdvList]="rendezVousList!"
+    [user]="user!"></app-planning-box>
   </div>
 
   <li>

@@ -82,7 +82,7 @@ export class CenterDetailComponent implements OnInit{
       },
       error: (error) => {
         // Handle error for updating an existing center
-        console.error('Error creating new center', error);
+        console.error('Error updating center', error);
       }
     });
   }

@@ -27,3 +27,7 @@ export interface DoctorRequest{
     healthCenter: HealthCenterBody;
     address: AddressBody;
 }
+
+export interface DoctorBody{
+    id: number;
+}

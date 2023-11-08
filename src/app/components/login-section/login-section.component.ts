@@ -11,6 +11,8 @@ export class LoginSectionComponent {
 
   login: string = "";
   password: string = "";
+  delay: boolean = false;
+  idUser: number = -1;
 
   constructor(private service: BackoffService, private route: Router){}
 
@@ -18,19 +20,28 @@ export class LoginSectionComponent {
     console.log('Login:', this.login);
     console.log('Password:', this.password);
   
+    this.delay = true
     this.service.loginAttempt(this.login, this.password).subscribe({
       next: (userId: number | null) => {
         if (userId !== null) {
+          this.idUser = userId;
           console.log(`Logged in as user with ID: ${userId}`);
-          this.route.navigate([`logged/${userId}`]); // Redirect on success
+          this.delay = true
         } else {
+          this.delay = false
           console.error('Login failed');
         }
       },
       error: (error) => {
+        this.delay = false
         console.error('Login failed', error);
       },
     });
+  }
+
+  captchat(): void{
+    this.loginRequest()
+    this.route.navigate([`logged/${this.idUser}`]);
   }
   
 }

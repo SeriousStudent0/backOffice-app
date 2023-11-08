@@ -1,4 +1,10 @@
 <div>
-    {{center.name}}
-    {{center.address.street}}, {{center.address.postalCode}} {{center.address.city}}
+    <li *ngFor="let patient of patientList">
+        <div class="detail" *ngIf="patient">
+            <div class="box">
+                <h2 [title]="patient.name">{{patient.name}}</h2>
+                <button (click)="validate(patient)">Valider</button>
+            </div>
+        </div>
+    </li>
 </div>

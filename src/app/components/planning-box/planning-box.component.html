@@ -1,0 +1,12 @@
+<div *ngIf="pendingRDV">
+    <button (click)="navigate('previous')">Précédent</button>
+    {{selectedDate}}
+    <button (click)="navigate('next')">Suivant</button>
+    <app-center-list
+    [patientList]="patientsForSelectedDate"
+    (validated)="validatedPushed($event)"></app-center-list>
+</div>
+<div *ngIf="!pendingRDV">
+    <p>Aucun rendez-vous en attente de validation</p>
+    <p>Revenez plus tard</p>
+</div>

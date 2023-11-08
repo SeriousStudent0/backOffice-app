@@ -4,6 +4,8 @@ import { Observable, Subject, catchError, map, of, tap } from 'rxjs';
 import { Doctor, DoctorRequest } from './model/doctor';
 import { HealthCenter, HealthCenterRequest } from './model/healthCenter';
 import { Address, AddressRequest } from './model/address';
+import { RendezVous, RendezVousRequest } from './model/rendezVous';
+import { Patient } from './model/patient';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +20,6 @@ export class BackoffService {
   constructor(private httpClient: HttpClient) { }
 
   loginAttempt(login : string, password : string): Observable<number | null>{
-    this.password = password;
-    this.login = login;
     let header = this.createAuth(login, password);
     const httpOptions = {
       headers: new HttpHeaders({
@@ -40,7 +40,7 @@ export class BackoffService {
         return of(null);
       })
     );
-}
+  }
 
   isLogged(): Observable<boolean> {
     return this.isLoggedSubject.asObservable();
@@ -136,5 +136,21 @@ export class BackoffService {
 
   getAllSuperAdmins() : Observable<Doctor[]>{
     return this.httpClient.get<Doctor[]>(`http://localhost:8080/doctor/private/superadmins`);
+  }
+
+  getAllPendingRDV(): Observable<RendezVous[]>{
+    return this.httpClient.get<RendezVous[]>(`http://localhost:8080/rendezvous/private/pending`);
+  }
+
+  validateRDV(rdvId : number, doctorId : number): Observable<RendezVous>{
+    return this.httpClient.put<RendezVous>(`http://localhost:8080/rendezvous/private/create`, {rdvId, doctorId});
+  }
+
+  setDoctorToPatient(patientId : number, doctorId : number){
+    return this.httpClient.put<Patient>(`http://localhost:8080/patient/private/addDoctor`, {patientId, doctorId});
+  }
+
+  addRDVtoDoctorRDVList(doctorId : number, rdvId : number): Observable<Doctor>{
+    return this.httpClient.post<Doctor>('http://localhost:8080/doctor/private/addRDV', {doctorId, rdvId});
   }
 }
