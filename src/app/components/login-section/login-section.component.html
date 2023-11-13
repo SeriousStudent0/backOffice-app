@@ -1,4 +1,4 @@
-<div *ngIf="!delay">
+<div>
     <div class = "login-section">
         <div class="login">
             <input type="text" placeholder="login" [(ngModel)]="login">
@@ -10,7 +10,4 @@
             <button (click)="loginRequest()">Se connecter</button>
         </div>
     </div>
-</div>
-<div *ngIf="delay">
-    <button (click)="captchat()">Je ne suis pas un robot</button>
 </div>

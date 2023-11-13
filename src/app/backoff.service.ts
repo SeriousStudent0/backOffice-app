@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, catchError, map, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, catchError, map, of, tap } from 'rxjs';
 import { Doctor, DoctorRequest } from './model/doctor';
 import { HealthCenter, HealthCenterRequest } from './model/healthCenter';
 import { Address, AddressRequest } from './model/address';
@@ -12,7 +12,7 @@ import { Patient } from './model/patient';
 })
 export class BackoffService {
 
-  private isLoggedSubject: Subject<boolean> = new Subject();
+  private isLoggedSubject: Subject<boolean> = new BehaviorSubject(false);
 
   private password?: string;
   private login?: string;
