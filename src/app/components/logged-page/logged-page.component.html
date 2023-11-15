@@ -1,114 +1,116 @@
-<p>Vous êtes connecté en tant que :</p>
+<button mat-raised-button color="primary" class="logout-button" (click)="loggout()">Se Déconnecter</button>
 
-<div class="info-box">
-    <li>Nom : {{user?.name}}</li>
-    <li>Role : {{user?.role}}</li>
-    <li>État de connexion : {{ user?.isLogged }}</li>
-    <li>Addresse : {{user?.address?.street}}</li>
-    <li>Centre de vaccination : {{user?.healthCenter?.name}}</li>
+<div class="container">
+  <div class="user-info">
+    <p>Vous êtes connecté en tant que :</p>
+    <div class="info-box">
+      <li>Nom : {{user?.name}}</li>
+      <li>Role : {{user?.role}}</li>
+      <li>État de connexion : {{ user?.isLogged }}</li>
+      <li>Addresse : {{user?.address?.street}}</li>
+      <li>Centre de vaccination : {{user?.healthCenter?.name}}</li>
+    </div>
+  </div>
+
+<div class="buttons">
+  <div *ngIf="user">
+      <ul>
+        <li *ngIf="user.role.toString() === 'SUPER_ADMIN'">
+          <button mat-raised-button color="primary" (click)="toggleContainerCentres()">Centres</button>
+        </li>
+        <li *ngIf="(user.role.toString() === 'ADMIN' || user.role.toString() === 'SUPER_ADMIN') && user.healthCenter">
+          <button mat-raised-button color="primary" (click)="toggleContainerMonCentre(user.healthCenter)">Mon centre</button>
+        </li>
+        <li *ngIf="user.healthCenter">
+          <button mat-raised-button color="primary" (click)="toggleContainerPlanning(user.rdv!, user.healthCenter)">Planning</button>
+        </li>
+        <li *ngIf="user.role.toString() === 'SUPER_ADMIN'">
+          <button mat-raised-button color="primary" (click)="toggleContainerConfig()">Configuration</button>
+        </li>
+      </ul>
+    </div>
 </div>
 
-<div *ngIf="user">
-    <ul>
-      <li *ngIf="user.role.toString() === 'SUPER_ADMIN'">
-        <button (click)="toggleContainerCentres()">Centres</button>
-      </li>
-      <li *ngIf="(user.role.toString() === 'ADMIN' || user.role.toString() === 'SUPER_ADMIN') && user.healthCenter">
-        <button (click)="toggleContainerMonCentre(user.healthCenter)">Mon centre</button>
-      </li>
-      <li *ngIf="user.healthCenter">
-        <button (click)="toggleContainerPlanning(user.rdv!, user.healthCenter)">Planning</button>
-      </li>
-      <li *ngIf="user.role.toString() === 'SUPER_ADMIN'">
-        <button (click)="toggleContainerConfig()">Configuration</button>
-      </li>
-    </ul>
-  </div>
+
+<div class="elements">
+    <div *ngIf="showContainerUserDetail">
+      <app-user-detail></app-user-detail>
+    </div>
+
+    <div *ngIf="showContainerCenters">
+      <app-search-bar
+        (hidden)="toggleContainerNewCentreAndHideSearchBar()"
+        (hiddenCreate)="toggleContainerCenterDetails($event)"
+        (hiddenUsers)="toggleContainerUserListBox($event)">
+      </app-search-bar>
+    </div>
+
+    <div *ngIf="showContainerNewCenter">
+      <app-new-center
+        (newCenterCreated)="toggleContainerCentres()">
+      </app-new-center>
+    </div>
+
+    <div *ngIf="showContainerCenterDetails">
+      <app-center-detail [center]="healthCenterForDetails!"
+        (updatedAndHidden)="toggleContainerCentres()"
+        (hidden)="toggleContainerCentres()"
+        (usersListCenterDetail)="toggleContainerUserListBox($event)">
+      </app-center-detail>
+    </div>
+
+    <div *ngIf="showContainerUserListBox">
+      <app-center-detail-box [center]="healthCenterForUsers!"
+      [clientRole]="user!.role"
+      (createdUserAndHide)="toggleContainerNewUser($event, healthCenterForUsers!)"
+      (modifyAndHide)="toggleContainerModifyUser($event, healthCenterForUsers!)"
+      (deleteAndHide)="toggleContainerConfirmationUser($event)"></app-center-detail-box>
+    </div>
 
 
+    <div *ngIf="showContainerUserCreation">
+      <app-user-detail 
+      [center]="healthCenterForUsers!"
+      [role]="roleForUser!"
+      (createdAndHide)="hideContainerNewUser()"
+      (hidden)="hideContainerNewUser()"></app-user-detail>
+    </div>
 
-  <div *ngIf="showContainerUserDetail">
-    <app-user-detail></app-user-detail>
-  </div>
+    <div *ngIf="showContainerUserModification">
+      <app-user-detail 
+      [user]="userToModify!"
+      [center]="healthCenterForUsers!"
+      (createdAndHide)="hideContainerNewUser()"
+      (hidden)="hideContainerNewUser()"></app-user-detail>
+    </div>
 
-  <div *ngIf="showContainerCenters">
-    <app-search-bar
-      (hidden)="toggleContainerNewCentreAndHideSearchBar()"
-      (hiddenCreate)="toggleContainerCenterDetails($event)"
-      (hiddenUsers)="toggleContainerUserListBox($event)">
-    </app-search-bar>
-  </div>
+    <div *ngIf="showContainerConfirmationUser">
+      <app-menu-centers
+      [user]="userToDelete!"
+      (hidden)="hideContainerNewUser()">
+      </app-menu-centers>
+    </div>
 
-  <div *ngIf="showContainerNewCenter">
-    <app-new-center
-      (newCenterCreated)="toggleContainerCentres()">
-    </app-new-center>
-  </div>
+    <div *ngIf="showContainerConfig">
+      <app-center-detail-box
+      [clientRole]="user!.role"
+      (createdUserAndHide)="toggleContainerNewUser($event)"
+      (modifyAndHide)="toggleContainerModifyUser($event)"
+      (deleteAndHide)="toggleContainerConfirmationUser($event)"></app-center-detail-box>
+    </div>
 
-  <div *ngIf="showContainerCenterDetails">
-    <app-center-detail [center]="healthCenterForDetails!"
-      (updatedAndHidden)="toggleContainerCentres()"
-      (hidden)="toggleContainerCentres()"
-      (usersListCenterDetail)="toggleContainerUserListBox($event)">
-    </app-center-detail>
-  </div>
+    <div *ngIf="showContainerMonCenter">
+      <app-center-detail-box [center]="healthCenterForUsers!"
+      [clientRole]="user!.role"
+      (createdUserAndHide)="toggleContainerNewUser($event, healthCenterForUsers!)"
+      (modifyAndHide)="toggleContainerModifyUser($event, healthCenterForUsers!)"
+      (deleteAndHide)="toggleContainerConfirmationUser($event)"></app-center-detail-box>
+    </div>
 
-  <div *ngIf="showContainerUserListBox">
-    <app-center-detail-box [center]="healthCenterForUsers!"
-    [clientRole]="user!.role"
-    (createdUserAndHide)="toggleContainerNewUser($event, healthCenterForUsers!)"
-    (modifyAndHide)="toggleContainerModifyUser($event, healthCenterForUsers!)"
-    (deleteAndHide)="toggleContainerConfirmationUser($event)"></app-center-detail-box>
-  </div>
-
-
-  <div *ngIf="showContainerUserCreation">
-    <app-user-detail 
-    [center]="healthCenterForUsers!"
-    [role]="roleForUser!"
-    (createdAndHide)="hideContainerNewUser()"
-    (hidden)="hideContainerNewUser()"></app-user-detail>
-  </div>
-
-  <div *ngIf="showContainerUserModification">
-    <app-user-detail 
-    [user]="userToModify!"
-    [center]="healthCenterForUsers!"
-    (createdAndHide)="hideContainerNewUser()"
-    (hidden)="hideContainerNewUser()"></app-user-detail>
-  </div>
-
-  <div *ngIf="showContainerConfirmationUser">
-    <app-menu-centers
-    [user]="userToDelete!"
-    (hidden)="hideContainerNewUser()">
-    </app-menu-centers>
-  </div>
-
-  <div *ngIf="showContainerConfig">
-    <app-center-detail-box
-    [clientRole]="user!.role"
-    (createdUserAndHide)="toggleContainerNewUser($event)"
-    (modifyAndHide)="toggleContainerModifyUser($event)"
-    (deleteAndHide)="toggleContainerConfirmationUser($event)"></app-center-detail-box>
-  </div>
-
-  <div *ngIf="showContainerMonCenter">
-    <app-center-detail-box [center]="healthCenterForUsers!"
-    [clientRole]="user!.role"
-    (createdUserAndHide)="toggleContainerNewUser($event, healthCenterForUsers!)"
-    (modifyAndHide)="toggleContainerModifyUser($event, healthCenterForUsers!)"
-    (deleteAndHide)="toggleContainerConfirmationUser($event)"></app-center-detail-box>
-  </div>
-
-  <div *ngIf="showContainerPlanning">
-    <app-planning-box [center]="healthCenterForUsers!"
-    [rdvList]="rendezVousList!"
-    [user]="user!"></app-planning-box>
-  </div>
-
-  <li>
-    <button (click)="loggout()">Se Déconneter</button>
-  </li>
-
+    <div *ngIf="showContainerPlanning">
+      <app-planning-box [center]="healthCenterForUsers!"
+      [rdvList]="rendezVousList!"
+      [user]="user!"></app-planning-box>
+    </div>
+</div>
   

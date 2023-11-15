@@ -18,6 +18,11 @@ import { NewCenterComponent } from './components/new-center/new-center.component
 import { CenterDetailBoxComponent } from './components/center-detail-box/center-detail-box.component';
 import { HeaderInterceptor } from './interceptor/header.interceptor';
 import { PlanningBoxComponent } from './components/planning-box/planning-box.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -39,7 +44,11 @@ import { PlanningBoxComponent } from './components/planning-box/planning-box.com
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatInputModule,
+    MatCardModule,
   ],
   providers: [
     {

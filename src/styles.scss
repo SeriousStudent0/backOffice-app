@@ -5,4 +5,58 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    position: relative; // Ensure positioning context for absolute positioning
+
+    // Add a white line at the top
+    &:before {
+        content: '';
+        display: block;
+        height: 100px; // Adjust the height as needed
+        background-color: #ffffffcb; // White color
+    }
+
+    .header {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100px; // Match the height of the white line
+        color: #4a4a4a; // Adjust text color as needed
+    }
+
+    .header h1,
+    .header .covid-title {
+        margin: 3;
+        font-weight: bold; // Adjust font weight as needed
+    }
+
+    .header h1 {
+        font-size: 24px; // Adjust the font size as needed
+    }
+
+    .header .covid-title {
+        font-size: 40px; // Adjust the font size as needed
+        color: #c2185b; // Adjust text color as needed
+    }
+
+    // Add an image at the top left corner
+    &:after {
+        content: '';
+        display: block;
+        background-image: url('static/images/logo.png'); // Replace with your image path
+        background-size: contain; // Adjust as needed
+        background-repeat: no-repeat;
+        background-position: left top;
+        position: absolute;
+        top: 10px;
+        left: 20px;
+        width: 80px; // Adjust the width as needed
+        height: 80px; // Adjust the height as needed
+    }
 }

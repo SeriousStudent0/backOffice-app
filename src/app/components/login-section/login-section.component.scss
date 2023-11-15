@@ -1,28 +1,32 @@
-.login-section{
+:host {
+     margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Add vertical centering */
+    height: 100vh;
+}
+  
+  .login-section {
     margin: 0;
     padding: 0;
     height: 30vh;
     display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    justify-content: center; /* Center horizontally */
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-   
-    
-}
-
-input{
-    border-radius: 10px; /* Adjust the value to control the roundness */
-    padding: 10px; /* Increase the padding to make the input bigger */
-    border: 2px solid #ccc; /* Add a border for a cleaner look */
-}
-
-button{
-    margin: 1vh;
-    border-radius: 10px; /* Adjust the value to control the roundness */
-    padding: 10px; /* Increase the padding to make the input bigger */
-    border: 2px solid #ccc; /* Add a border for a cleaner look */
-    background-color: rgb(249, 161, 161);
-    font-family: 'Lucida Sans Unicode', Arial, sans-serif; 
+  }
+  
+  mat-form-field {
+    width: 100%;
+    margin: 1vh 0;
+  }
+  
+  button {
+    margin: 1vh 0;
+    background-color: #F9A1A1;
+    font-family: 'Roboto', 'Helvetica Neue', sans-serif;
     font-weight: 500;
-    color : rgb(0, 0, 0);
-}
+    color: #000000;
+  }

@@ -12,6 +12,7 @@ import { RendezVous } from '../../model/rendezVous';
   templateUrl: './logged-page.component.html',
   styleUrls: ['./logged-page.component.scss']
 })
+
 export class LoggedPageComponent implements OnInit{
 
   user : Doctor | undefined;

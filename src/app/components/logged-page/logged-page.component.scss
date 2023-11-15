@@ -1,17 +1,68 @@
 /* Apply styles to the containing div */
-.info-box {
-    display: inline-block; /* Display as inline block */
-    border: 2px solid #000000; /* Blue/green border */
-    background-color: #f9292928; /* Blue/green background */
-    border-radius: 25px; /* Rounded edges */
-    font-family: Arial, sans-serif; /* Change the font */
-    color: #ffffff; /* Blue text color */
-    padding: 25px; /* Add padding for spacing */
-    list-style-type: none; /* Remove bullet points from the ul */
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.492); /* Horizontal offset, vertical offset, blur radius, color */
-}
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Set the height of the component to 100% of the viewport height */
+  }
+  
+  .container {
+    display: flex;
+    height: 100%; /* Set the height of the container to 100% */
+  }
+  
+  .user-info {
+    width: 16%;
+    background-color: #ffffff95;
+    padding: 20px;
+  }
+  
+  .info-box {
+    display: inline-block;
+    border: 2px solid #000000;
+    background-color: #f9f9f9;
+    border-radius: 25px;
+    font-family: Arial, sans-serif;
+    color: #000000;
+    padding: 25px;
+    list-style-type: none;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .info-box ul li {
+    margin: 5px 0;
+  }
 
-/* Apply styles to the list items */
-.info-box ul li {
-    margin: 5px 0; /* Add spacing between list items */
-}
+  .buttons{
+    display: flex;
+    height: 100vh;
+    width: 14%;
+    background-color: #ffffff61;
+    padding: 20px;
+    list-style: none; /* Remove bullets */
+  }
+
+  .buttons ul {
+    list-style: none; /* Remove bullets for the ul element */
+  }
+  
+  .buttons li {
+    margin-bottom: 10px; /* Add space between list items */
+  }
+  
+  .elements {
+    //flex-grow: 1; /* Use flex-grow to make the buttons fill the remaining space */
+    //display: flex;
+    //flex-direction: column;
+    //align-items: flex-end;
+    //padding-right: 20px;
+  }
+  
+  .logout-button {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    z-index: 1;
+  }
+  
+  
+  
