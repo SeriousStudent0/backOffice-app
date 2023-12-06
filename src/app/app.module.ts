@@ -23,6 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { CdkAccordionModule } from '@angular/cdk/accordion';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { MatInputModule } from '@angular/material/input';
     MatButtonModule,
     MatInputModule,
     MatCardModule,
+    CdkAccordionModule,
   ],
   providers: [
     {

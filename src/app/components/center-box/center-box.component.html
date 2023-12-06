@@ -1,18 +1,15 @@
-<div class="centerList" *ngIf="centers">
-    <ul>
-        <li *ngFor="let center of centers">
-            <div class="detail" *ngIf="center">
-                <div class="box">
-                    <h2 [title]="center.name">{{center.name}}</h2> 
-                    <div> 
-                        <span>{{center.address.postalCode}}</span>
-                        ,
-                        <span>{{center.address.city}}</span>
-                    </div>
-                    <button (click)="showUsers(center)">Personnel</button>
-                    <button (click)="modifyCenter(center)">Modifier</button>
-                </div>
-            </div>
-        </li>
-    </ul>
-</div>
+<div class="centerList" *ngIf="centers" cdkAccordion>
+    <div *ngFor="let center of centers">
+      <h2 cdkAccordionItem cdkAccordionItemHeader>{{ center.name }}</h2>
+      <div cdkAccordionItemContent>
+        <div class="box">
+          <div>
+            <span>{{ center.address.postalCode }}</span>,
+            <span>{{ center.address.city }}</span>
+          </div>
+          <button mat-raised-button color="primary" (click)="showUsers(center)">Personnel</button>
+          <button mat-raised-button color="primary" (click)="modifyCenter(center)">Modifier</button>
+        </div>
+      </div>
+    </div>
+  </div>

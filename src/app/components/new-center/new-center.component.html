@@ -1,19 +1,31 @@
 <p>Creation d'un nouveau centre de vaccination</p>
 
 <div>
-    <input type="text" placeholder="Nom" [(ngModel)]="name">
+    <mat-form-field>
+        <input matInput type="text" placeholder="Nom" [(ngModel)]="name">
+    </mat-form-field>
 </div>
 <div>
-    <input type="text" placeholder="Pays" [(ngModel)]="country">
+    <mat-form-field>
+        <input matInput type="text" placeholder="Pays" [(ngModel)]="country">
+    </mat-form-field>
 </div>
 <div>
-<input type="text" placeholder="Code postal" [(ngModel)]="postalCode">
-<input type="text" placeholder="Ville" [(ngModel)]="city">
+    <mat-form-field>
+        <input matInput type="text" placeholder="Code postal" [(ngModel)]="postalCode">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput type="text" placeholder="Ville" [(ngModel)]="city">
+    </mat-form-field>
 </div>
 <div>
-    <input type="number" placeholder="Numero de voie" [(ngModel)]="streetNumber">
-    <input type="text" placeholder="Rue" [(ngModel)]="street">
+    <mat-form-field>
+        <input matInput type="text" placeholder="Numero de voie" [(ngModel)]="streetNumber">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput type="text" placeholder="Rue" [(ngModel)]="street">
+    </mat-form-field>
 </div>
 <div>
-    <button (click)="create()">Créer</button>
+    <button mat-raised-button color="primary" (click)="create()">Créer</button>
 </div>
